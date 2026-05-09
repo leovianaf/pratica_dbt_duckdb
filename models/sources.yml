@@ -1,0 +1,15 @@
+version: 2
+
+sources:
+  - name: raw_data
+    description: "Schema com os dados brutos carregados a partir dos arquivos CSV disponibilizados para a atividade."
+    schema: raw_data
+    tables:
+      - name: ICG_ESCOLAS_2025
+        description: "Base bruta do Indicador de Complexidade de Gestão Escolar de 2025."
+
+      - name: IED_ESCOLAS_2025
+        description: "Base bruta do Indicador de Esforço Docente de 2025."
+
+      - name: Tabela_Gestor_Escolar_2025
+        description: "Base bruta com informações sobre gestores escolares de 2025."

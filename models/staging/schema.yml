@@ -1,0 +1,112 @@
+version: 2
+
+models:
+  - name: stg_icg_escolas
+    description: "Camada staging da base ICG Escolas 2025, contendo informações padronizadas sobre complexidade de gestão escolar por escola."
+    columns:
+      - name: ano_censo
+        description: "Ano de referência do Censo Escolar."
+        tests:
+          - not_null
+
+      - name: uf
+        description: "Sigla da Unidade Federativa da escola."
+        tests:
+          - not_null
+
+      - name: id_municipio
+        description: "Código do município da escola."
+        tests:
+          - not_null
+
+      - name: id_escola
+        description: "Código identificador da escola."
+        tests:
+          - not_null
+
+      - name: nivel_complexidade_gestao
+        description: "Nível do Indicador de Complexidade de Gestão Escolar."
+
+  - name: stg_ied_escolas
+    description: "Camada staging da base IED Escolas 2025, contendo percentuais de docentes por nível de esforço docente."
+    columns:
+      - name: ano_censo
+        description: "Ano de referência do Censo Escolar."
+        tests:
+          - not_null
+
+      - name: uf
+        description: "Sigla da Unidade Federativa da escola."
+        tests:
+          - not_null
+
+      - name: id_municipio
+        description: "Código do município da escola."
+        tests:
+          - not_null
+
+      - name: id_escola
+        description: "Código identificador da escola."
+        tests:
+          - not_null
+
+      - name: pct_docentes_esforco_nivel_1
+        description: "Percentual de docentes classificados no nível 1 do indicador de esforço docente."
+
+      - name: pct_docentes_esforco_nivel_2
+        description: "Percentual de docentes classificados no nível 2 do indicador de esforço docente."
+
+      - name: pct_docentes_esforco_nivel_3
+        description: "Percentual de docentes classificados no nível 3 do indicador de esforço docente."
+
+      - name: pct_docentes_esforco_nivel_4
+        description: "Percentual de docentes classificados no nível 4 do indicador de esforço docente."
+
+      - name: pct_docentes_esforco_nivel_5
+        description: "Percentual de docentes classificados no nível 5 do indicador de esforço docente."
+
+      - name: pct_docentes_esforco_nivel_6
+        description: "Percentual de docentes classificados no nível 6 do indicador de esforço docente."
+
+  - name: stg_gestor_escolar
+    description: "Camada staging da base de Gestor Escolar 2025, contendo quantidades padronizadas de gestores por características demográficas, escolaridade, vínculo e cargo."
+    columns:
+      - name: ano_censo
+        description: "Ano de referência do Censo Escolar."
+        tests:
+          - not_null
+
+      - name: id_escola
+        description: "Código identificador da escola."
+        tests:
+          - not_null
+
+      - name: qtd_gestores
+        description: "Quantidade total de gestores da educação básica vinculados à escola."
+
+      - name: qtd_gestores_feminino
+        description: "Quantidade de gestores identificados como feminino."
+
+      - name: qtd_gestores_masculino
+        description: "Quantidade de gestores identificados como masculino."
+
+      - name: qtd_gestores_brancos
+        description: "Quantidade de gestores declarados brancos."
+
+      - name: qtd_gestores_pretos
+        description: "Quantidade de gestores declarados pretos."
+
+      - name: qtd_gestores_pardos
+        description: "Quantidade de gestores declarados pardos."
+
+      - name: qtd_gestores_graduacao
+        description: "Quantidade de gestores com graduação."
+
+      - name: qtd_gestores_pos_especializacao
+        description: "Quantidade de gestores com pós-graduação lato sensu/especialização."
+
+      - name: qtd_gestores_pos_mestrado
+        description: "Quantidade de gestores com mestrado."
+
+      - name: qtd_gestores_pos_doutorado
+        description: "Quantidade de gestores com doutorado."

@@ -3,3 +3,5 @@ data/prep.ipynb
 logs/*
 *.duckdb
 venv/
+*settings.json
+target/
