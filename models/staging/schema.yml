@@ -81,7 +81,7 @@ models:
         tests:
           - not_null
 
-      - name: qtd_gestores
+      - name: qtd_gestores_total
         description: "Quantidade total de gestores da educação básica vinculados à escola."
 
       - name: qtd_gestores_feminino
