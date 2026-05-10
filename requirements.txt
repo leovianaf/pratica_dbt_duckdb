@@ -4,3 +4,5 @@ dbt-duckdb
 duckdb
 pandas
 pyarrow
+plotly
+numpy

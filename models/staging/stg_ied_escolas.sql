@@ -9,11 +9,11 @@ select
     trim(NO_CATEGORIA) as localizacao_escola,
     trim(NO_DEPENDENCIA) as dependencia_administrativa,
 
-    cast(FUN_CAT_1 as double) as pct_docentes_esforco_nivel_1,
-    cast(FUN_CAT_2 as double) as pct_docentes_esforco_nivel_2,
-    cast(FUN_CAT_3 as double) as pct_docentes_esforco_nivel_3,
-    cast(FUN_CAT_4 as double) as pct_docentes_esforco_nivel_4,
-    cast(FUN_CAT_5 as double) as pct_docentes_esforco_nivel_5,
-    cast(FUN_CAT_6 as double) as pct_docentes_esforco_nivel_6
+    try_cast(FUN_CAT_1 as double) as pct_docentes_esforco_nivel_1,
+    try_cast(FUN_CAT_2 as double) as pct_docentes_esforco_nivel_2,
+    try_cast(FUN_CAT_3 as double) as pct_docentes_esforco_nivel_3,
+    try_cast(FUN_CAT_4 as double) as pct_docentes_esforco_nivel_4,
+    try_cast(FUN_CAT_5 as double) as pct_docentes_esforco_nivel_5,
+    try_cast(FUN_CAT_6 as double) as pct_docentes_esforco_nivel_6
 from {{ source('raw_data', 'IED_ESCOLAS_2025') }}
 where CO_ENTIDADE is not null
