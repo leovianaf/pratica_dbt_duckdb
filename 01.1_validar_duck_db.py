@@ -16,8 +16,13 @@ df_staging = con.execute("""
 
 print(df_staging)
 
-for tabela in ["stg_icg_escolas", "stg_ied_escolas", "stg_gestor_escolar"]:
-    print(f"\n--- {tabela} ---")
-    print(con.execute(f"select * from main_staging.{tabela} limit 5").fetchdf())
+if df_staging.empty:
+    print("\nNenhuma tabela de staging encontrada.")
+    print("Rode: dbt run --select staging")
+else:
+    # Em dbt-duckdb, com target schema 'main' e +schema 'staging', o schema final vira 'main_staging'.
+    for tabela in ["stg_icg_escolas", "stg_ied_escolas", "stg_gestor_escolar"]:
+        print(f"\n--- {tabela} ---")
+        print(con.execute(f"select * from main_staging.{tabela} limit 5").fetchdf())
 
 con.close()

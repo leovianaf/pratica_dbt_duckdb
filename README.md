@@ -1,23 +1,89 @@
 # Atividade prática Modelagem + DBT
 
-## Descrição
-Com base nos dados dispostos, o objetivo é que o grupo modelem as dimensões de Staging, Itermediate, Serving, além de criar um documentação para cada tabela criada (já irei fornecer a documentação completa do staging), criar uma pergunta de pesquisa e responde-la, usando ao menos 2 das 3 bases de dados  com pelo menos um gráfico python. 
+## Pergunta de Pesquisa (UF = BA)
 
-Cada grupo escolherá 1 UF brasileira para trabalhar. 
-Preencher a tabela: https://docs.google.com/spreadsheets/d/1mzj1vjojuTdD0GhgO9ebSFM88PT-m6JCsl3RwCjfrNM/edit?gid=1581131355#gid=1581131355
+**Pergunta:** Nas escolas da Bahia (BA) em 2025, escolas com maior nível de complexidade de gestão apresentam maior proporção de docentes em altos níveis de esforço (níveis 5+6)?
 
+**Hipótese:** Escolas com maior `nivel_complexidade_gestao` têm maior `pct_docentes_alto_esforco`.
 
-Expectativa: <br>
-1- Criação da pergunta de pesquisa que o grupo deseja responder;<br>
-2- Modelagem da camada Itermediate e Serving, para responder essa pergunta;<br>
-3- Criação do model e documentação das tabelas;<br>
-4- Exibição da resposta, consumindo do banco de dados duckdb;<br>
-5- Apresentação em 5min combinando Hipótese -> Modelagem -> Documentação -> Resultado -> Conclusão. <br>
+**Fontes utilizadas:**
 
-Observação: O objetivo é não usar o python para processar nenhum dado, apenas fazer a leitura de criar os gráficos para responder a pergunta de pesquisa.
+- `ICG_ESCOLAS_2025` (Indicador de Complexidade de Gestão)
+- `IED_ESCOLAS_2025` (Indicador de Esforço Docente)
+- `Tabela_Gestor_Escolar_2025` (Perfil dos gestores)
 
-### Apresentação
-Se for possível trazer o notebook pra mostrar o processo se não adicionar tudo via GitHub e apresentar.<br>
-Não é necessário slide, organize tudo em um Notebook para apresentar e os modelos commitados no GitHub.
+**Métrica esperada:** Média/mediana de `pct_docentes_alto_esforco` por nível de `nivel_complexidade_gestao`.
 
-Tempo de apresentação: 5 minutos (a preferência é que outros alunos do grupo apresentem os resultados.)
+---
+
+## 1. Como rodar a Staging
+
+### 1.1 Preparar ambiente
+
+```bash
+source venv/bin/activate
+pip install -r requirements.txt
+```
+
+### 1.2 Carregar dados brutos no DuckDB (raw_data)
+
+```bash
+python 01_inserir_dados.py
+```
+
+### 1.3 Rodar modelos da staging
+
+```bash
+dbt run --select staging
+```
+
+### 1.4 Testar staging
+
+```bash
+dbt test --select staging
+```
+
+### 1.5 Validar tabelas geradas
+
+```bash
+python 01.1_validar_duck_db.py
+```
+
+Schemas esperados nesta etapa:
+
+- `raw_data` (tabelas brutas)
+- `main_staging` (modelos dbt da camada staging)
+
+## 2. Como rodar a Intermediate
+
+### 2.1 Rodar modelos da intermediate
+
+```bash
+dbt run --select intermediate
+```
+
+### 2.2 Testar intermediate
+
+```bash
+dbt test --select intermediate
+```
+
+### 2.3 Rodar sanity checks
+
+Use o notebook de validação da intermediate (`02_checks_intermediate.ipynb`) para conferir:
+
+- filtro de UF = BA
+- contagens staging vs intermediate
+- percentual de nulos em colunas-chave
+- consistência dos joins e hipótese preliminar
+
+### 2.4 Gerar documentação dbt
+
+```bash
+dbt docs generate
+dbt docs serve
+```
+
+Schema esperado nesta etapa:
+
+- `main_intermediate` (modelos intermediários para BA)

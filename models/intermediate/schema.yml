@@ -1,0 +1,50 @@
+version: 2
+
+models:
+  - name: int_escolas_indicadores_ba
+    description: "Intermediate: indicadores por escola (ICG + IED) filtrado para UF = BA"
+    columns:
+      - name: ano_censo
+        description: "Ano de referência"
+        tests:
+          - not_null
+      - name: id_escola
+        description: "Identificador da escola"
+        tests:
+          - not_null
+          - unique
+      - name: uf
+        description: "Sigla da unidade federativa (BA)"
+        tests:
+          - not_null
+          - accepted_values:
+              values: ["BA"]
+      - name: nivel_complexidade_gestao
+        description: "Nível do indicador de complexidade de gestão"
+      - name: pct_docentes_alto_esforco
+        description: "Soma dos percentuais nos níveis 5 e 6 (alto esforço docente)"
+
+  - name: int_perfil_gestao_ba
+    description: "Intermediate: perfil agregado de gestores por escola (BA)"
+    columns:
+      - name: ano_censo
+        description: "Ano de referência"
+        tests:
+          - not_null
+      - name: id_escola
+        description: "Identificador da escola"
+        tests:
+          - not_null
+          - unique
+      - name: uf
+        description: "Sigla da unidade federativa (BA)"
+        tests:
+          - not_null
+          - accepted_values:
+              values: ["BA"]
+      - name: qtd_gestores_total
+        description: "Quantidade total de gestores (agregada)"
+        tests:
+          - not_null
+      - name: prop_pos_especializacao
+        description: "Proporção de gestores com pós-especialização"
