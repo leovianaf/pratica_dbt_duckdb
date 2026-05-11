@@ -87,3 +87,35 @@ dbt docs serve
 Schema esperado nesta etapa:
 
 - `main_intermediate` (modelos intermediários para BA)
+
+## 3. Como rodar a Serving
+
+### 3.1 Rodar modelo da serving
+
+```bash
+dbt run --select serving
+```
+
+### 3.2 Testar serving
+
+```bash
+dbt test --select serving
+```
+
+### 3.3 Exibir resultados
+
+Abra e execute todas as células do notebook `03_exibir_resultados.ipynb`.
+
+Ele carrega os dados diretamente do schema `main_serving` e exibe 3 gráficos:
+
+- **Gráfico 1:** Média de docentes em alto esforço por nível de complexidade de gestão — resposta direta à pergunta de pesquisa
+- **Gráfico 2:** Distribuição dos níveis de complexidade por rede administrativa
+- **Gráfico 3:** Média de docentes em alto esforço por rede administrativa
+
+Schema esperado nesta etapa:
+
+- `main_serving` (tabela fato consolidada para análise)
+
+### 3.4 Conclusão
+
+A média de docentes em alto esforço (níveis 5+6) cresce consistentemente com o nível de complexidade de gestão (ICG): de **1,3% no nível 1** para **11,4% no nível 6**. A hipótese é confirmada. Escolas da rede Estadual concentram os níveis mais altos de complexidade e, consequentemente, a maior sobrecarga docente (16,8%).
