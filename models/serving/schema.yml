@@ -1,0 +1,72 @@
+version: 2
+
+models:
+  - name: fct_desigualdade_gestao_esforco
+    description: >
+      Tabela fato da camada Serving para a Bahia (BA), Censo Escolar 2025.
+      Consolida, por escola, o nível de complexidade de gestão (ICG), a taxa
+      de docentes em esforço crítico (IED — níveis 5 e 6), a rede administrativa
+      e os perfis racial e de gênero dos gestores escolares.
+
+      Responde à pergunta de pesquisa: "Nas escolas da BA, maior complexidade de
+      gestão está associada a maior proporção de docentes em alto esforço?"
+
+      Consumida diretamente pelo notebook 03_exibir_resultados.ipynb.
+      Materializada como TABLE no schema main_serving.
+
+    columns:
+
+      - name: ano_censo
+        description: "Ano de referência do Censo Escolar (2025)."
+        tests:
+          - not_null
+
+      - name: id_escola
+        description: "Código identificador único da escola (CO_ENTIDADE do INEP)."
+        tests:
+          - not_null
+          - unique
+
+      - name: nome_escola
+        description: "Nome oficial da instituição de ensino."
+
+      - name: id_municipio
+        description: "Código IBGE do município onde a escola está localizada."
+
+      - name: nome_municipio
+        description: "Nome do município onde a escola está localizada."
+
+      - name: nivel_complexidade
+        description: >
+          Nível de complexidade de gestão escolar segundo o ICG (Indicador de
+          Complexidade de Gestão) do INEP. Escala de 1 a 6, onde 1 representa
+          escolas mais simples de gerir e 6 as mais complexas.
+
+      - name: tx_esforco_docente_critico
+        description: >
+          Taxa (%) de docentes em esforço crítico, calculada como a soma dos
+          percentuais nos níveis 5 e 6 do IED (Indicador de Esforço Docente).
+          Retorna NULL quando a escola não possui registro no IED, garantindo
+          que escolas sem dado não distorçam médias e proporções na análise.
+
+      - name: no_dependencia
+        description: >
+          Rede ou dependência administrativa da escola. Valores possíveis:
+          Municipal, Estadual, Federal, Privada.
+
+      - name: perfil_genero
+        description: >
+          Perfil de gênero dominante entre os gestores da escola, classificado
+          com base na proporção de gestores por gênero. Valores possíveis:
+          - 'Maioria Feminina': mais de 60% dos gestores são do gênero feminino.
+          - 'Maioria Masculina': mais de 60% dos gestores são do gênero masculino.
+          - 'Equilibrado / Não Informado': proporção equilibrada ou escola sem gestores registrados.
+
+      - name: perfil_raca
+        description: >
+          Perfil racial dominante entre os gestores da escola, classificado com
+          base na proporção de gestores por raça/cor (IBGE). Valores possíveis:
+          - 'Maioria Branca': mais de 50% dos gestores são brancos.
+          - 'Maioria Negra (Pretos + Pardos)': mais de 50% dos gestores são pretos
+            ou pardos, agrupados conforme a classificação IBGE de população negra.
+          - 'Misto / Não Informado': nenhuma raça é majoritária ou escola sem gestores registrados.
